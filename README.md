@@ -3,7 +3,7 @@
 # 🕹️ Pustaka Game (BS2)
 
 **Pustaka Game** adalah aplikasi web berbasis Django yang dibuat sebagai tugas akhir mata kuliah Basis Data 2. Aplikasi ini memungkinkan pengguna menjelajahi koleksi game, mencari berdasarkan kategori, serta memiliki profil pribadi dengan gambar.
-
+Database Menggunakan : PostgreSQL
 ---
 
 ## 🚀 Fitur Utama
@@ -88,4 +88,4 @@ Proyek ini dikembangkan oleh kelompok Basis Data 2
 ## 📄 Lisensi
 
 Bebas digunakan untuk pembelajaran dan pengembangan lebih lanjut.  
-Tambahkan lisensi jika dibutuhkan.
+
