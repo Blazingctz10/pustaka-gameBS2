@@ -1,0 +1,212 @@
+/* === FONT & ROOT VARIABLES === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+    --bg-primary: #121212;
+    --bg-secondary: #1e1e1e;
+    --bg-tertiary: #2a2a2a;
+    --border-color: #444;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --brand-primary: #569cd6;
+    --brand-secondary: #9cdcfe;
+    --danger-color: #f44336;
+}
+
+/* === GENERAL RESET & STYLES === */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+a {
+    color: var(--brand-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+a:hover {
+    color: var(--brand-primary);
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 20px 0;
+}
+
+h1, h2, h3 {
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+/* === NAVBAR === */
+.navbar {
+    background-color: var(--bg-secondary);
+    padding: 15px 40px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.navbar a.site-title {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.navbar a.site-title:hover {
+    color: var(--brand-primary);
+}
+.search-form input {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    min-width: 300px;
+}
+.search-form button, .btn-primary {
+    padding: 8px 15px;
+    border: none;
+    background-color: var(--brand-primary);
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.search-form button:hover, .btn-primary:hover {
+    background-color: #4a8ac9;
+}
+.nav-right span { color: var(--text-secondary); }
+.logout-button {
+    background: none; border: none; color: var(--text-secondary); font-family: inherit; font-size: inherit; cursor: pointer;
+}
+.logout-button:hover { color: var(--danger-color); }
+
+
+/* === GAME CARD (HOME) === */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+.game-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.game-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+.game-card-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+.game-card-content {
+    padding: 15px;
+}
+.category-list { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.category-badge {
+    background-color: var(--bg-tertiary); color: var(--text-secondary); padding: 4px 10px; border-radius: 12px; font-size: 0.8em;
+}
+.category-badge:hover { background-color: var(--brand-primary); color: white; }
+
+
+/* === DETAIL & PROFILE PAGE === */
+.profile-layout { display: flex; gap: 30px; }
+.profile-sidebar { flex: 0 0 250px; }
+.profile-main { flex: 1; }
+.profile-pic {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    border: 4px solid var(--border-color);
+    margin-bottom: 20px;
+}
+.profile-details, .game-info, .add-comment-section, .comments-section {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.comment {
+    border-top: 1px solid var(--border-color); padding: 15px 0;
+}
+.comment:first-child { border-top: none; }
+.comment-date { color: var(--text-secondary); font-size: 0.9em; }
+.comment-body { background-color: var(--bg-tertiary); padding: 15px; border-radius: 6px; margin-top: 10px; }
+textarea {
+    width: 100%; background-color: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px; font-family: 'Inter', sans-serif;
+}
+form input[type="file"] { margin: 10px 0; }
+
+.form-container {
+    background-color: var(--bg-secondary);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    max-width: 500px;
+    margin: 40px auto;
+}
+
+.form-field {
+    margin-bottom: 20px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-secondary);
+    font-weight: bold;
+}
+
+.form-field input, 
+.form-field textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+}
+
+.help-text {
+    font-size: 0.8em;
+    color: var(--text-secondary);
+    display: block;
+    margin-top: 5px;
+}
+
+/* Ini bagian terpenting untuk menampilkan error */
+.error-message {
+    color: var(--danger-color, #f44336);
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-top: 5px;
+    list-style: none;
+    padding: 0;
+}

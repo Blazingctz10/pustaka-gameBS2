@@ -1,0 +1,18 @@
+# Python
+*.pyc
+__pycache__/
+
+# Virtual environment
+.venv/
+
+# Database lokal
+db.sqlite3
+
+# File upload media
+/media/
+
+# Staticfiles hasil collectstatic (jangan upload, bisa dibuat ulang)
+staticfiles/
+
+# File konfigurasi rahasia
+.env

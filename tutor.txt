@@ -1,0 +1,105 @@
+Panduan Versi "Hanya Copy"
+Di Laptop LAMA (Sumber)
+Buat Daftar Belanjaan (requirements.txt):
+
+Buka terminal di folder ProyekGame.
+Aktifkan venv Anda (.\venv\Scripts\activate).
+Jalankan: pip freeze > requirements.txt.
+File requirements.txt akan dibuat di dalam folder ProyekGame.
+Buat Cadangan Data (backup.sql):
+
+Buka terminal baru (tidak perlu aktifkan venv).
+Jalankan: pg_dump -U postgres -d SistemManajemenPerpusGame -f backup_proyek_game.sql
+Pindahkan file backup_proyek_game.sql ini ke dalam folder ProyekGame.
+Salin Proyek ke Flash Drive / Google Drive:
+
+Buka File Explorer.
+Salin (Copy) seluruh folder ProyekGame Anda ke flash drive atau upload ke cloud.
+Proyek asli Anda di laptop tidak diubah atau dihapus sama sekali.
+Di PC BARU (Tujuan)
+Instal Kebutuhan Dasar: Pastikan Python dan PostgreSQL sudah terinstal di PC baru.
+
+Salin Proyek dari Flash Drive: Salin folder ProyekGame dari flash drive ke lokasi yang Anda inginkan di PC baru (misalnya ke C:\Users\User\Documents\).
+
+HAPUS venv LAMA DARI HASIL SALINAN:
+
+Buka folder ProyekGame di PC baru Anda.
+Cari folder bernama venv. Hapus folder venv ini. Kita tidak akan memakainya.
+Buat dan Aktifkan venv BARU:
+
+Buka terminal di dalam folder ProyekGame di PC baru.
+Jalankan: python -m venv venv
+Aktifkan: .\venv\Scripts\activate
+Instal Semua "Belanjaan":
+
+Dengan venv baru yang aktif, jalankan:
+Bash
+
+pip install -r requirements.txt
+Ini akan menginstal Django dan semua paket lainnya ke dalam venv baru Anda.
+Siapkan Database Baru dan Restore Data:
+
+Buka DBeaver, buat database kosong bernama SistemManajemenPerpusGame.
+Di terminal, jalankan:
+Bash
+
+psql -U postgres -d SistemManajemenPerpusGame -f backup_proyek_game.sql
+Cek settings.py: Pastikan USER dan PASSWORD database di file game_project/settings.py sudah sesuai dengan PostgreSQL di PC baru Anda.
+
+Jalankan Server:
+
+Bash
+
+python manage.py runserver
+Selesai!
+
+Intinya: Kode Anda (.py, .html) dan "resep" (requirements.txt, backup.sql) bisa disalin. Tapi "dapur" (venv) harus selalu dibangun baru di setiap lokasi.
+
+Bagian 1: Di Laptop LAMA - Membuat File Backup dengan pgAdmin
+Ikuti langkah-langkah ini di pgAdmin di laptop Anda.
+
+Buka pgAdmin dan hubungkan ke server PostgreSQL Anda.
+
+Di panel "Browser" sebelah kiri, navigasi ke Servers > PostgreSQL [versi Anda] > Databases.
+
+Klik kanan pada nama database Anda, yaitu SistemManajemenPerpusGame.
+
+Dari menu yang muncul, pilih Backup....
+
+Sebuah jendela "Backup" akan muncul. Sekarang kita isi konfigurasinya:
+
+Filename: Klik ikon folder ... di sebelah kanan. Arahkan ke dalam folder proyek Anda (ProyekGame) dan beri nama file backup Anda, misalnya backup_proyek_game.backup. Klik "Create".
+Format: Ini penting. Dari dropdown, pilih format Custom. Format ini fleksibel dan paling sering direkomendasikan untuk pgAdmin.
+Encoding: Biarkan UTF-8.
+Setelah semuanya terisi, klik tombol Backup di pojok kanan bawah.
+
+Tunggu beberapa saat. Anda akan melihat notifikasi "Backup job created" dan kemudian "Successfully completed". Sekarang Anda punya file backup_proyek_game.backup di dalam folder ProyekGame Anda.
+
+File inilah (bersama seluruh folder proyek Anda, kecuali venv) yang akan Anda pindahkan ke PC baru Anda.
+
+Bagian 2: Di PC BARU - Me-restore File Backup dengan pgAdmin
+Setelah Anda memindahkan folder proyek (yang berisi file .backup) ke PC baru Anda:
+
+Pastikan Anda sudah menginstal PostgreSQL dan pgAdmin di PC baru.
+
+Buat Database Kosong Terlebih Dahulu (WAJIB):
+
+Buka pgAdmin di PC baru.
+Klik kanan pada Databases -> Create -> Database....
+Beri nama database baru Anda sama persis seperti sebelumnya: SistemManajemenPerpusGame.
+Klik "Save".
+Klik kanan pada database SistemManajemenPerpusGame yang baru dan masih kosong tersebut.
+
+Dari menu yang muncul, pilih Restore....
+
+Sebuah jendela "Restore" akan muncul.
+
+Format: Pastikan ini diatur ke Custom or tar.
+Filename: Klik ikon folder .... Cari dan pilih file backup_proyek_game.backup yang sudah Anda pindahkan dari laptop.
+Sisanya bisa dibiarkan default.
+Klik tombol Restore di pojok kanan bawah.
+
+Tunggu hingga prosesnya selesai dan Anda mendapatkan notifikasi "Successfully completed".
+
+Verifikasi:
+Setelah restore berhasil, coba klik kanan pada database SistemManajemenPerpusGame Anda dan pilih Refresh. Lalu buka bagian Schemas > public > Tables. Anda seharusnya sudah melihat semua tabel Anda (auth_user, catalog_game, dll.) sudah terisi kembali.

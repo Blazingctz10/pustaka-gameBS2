@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pustaka Game Batam{% endblock %}</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'catalog/css/main.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="{% url 'home' %}" class="site-title">Pustaka Game YAJIZ</a>
+            <form method="GET" action="{% url 'home' %}" class="search-form">
+                <input type="text" name="q" placeholder="Cari game..." value="{{ request.GET.q }}">
+                <button type="submit" class="btn-primary">Cari</button>
+            </form>
+        </div>
+
+        <div class="nav-right">
+            {% if user.is_authenticated %}
+                <span>Halo, {{ user.username }}!</span>
+                <a href="{% url 'profile' %}">Profile Saya</a>
+                
+                {# ▼▼▼ UBAH NAMA URL DI DALAM FORM INI ▼▼▼ #}
+                <form action="{% url 'account_logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-button">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </div>
+    </nav> 
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>

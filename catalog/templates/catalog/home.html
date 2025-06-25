@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Katalog Game Pilihan{% endblock %}
+
+{% block content %}
+    <h1>{{ judul_halaman|default:"Katalog Game Pilihan" }}</h1>
+    <p>Selamat datang di katalog game kami!</p>
+    <hr>
+
+    {% for game in daftar_game %}
+        <div class="game-card">
+            {% if game.gambar_utama_url %}
+                <img src="{{ game.gambar_utama_url }}" alt="Cover untuk {{ game.judul }}">
+            {% endif %}
+            
+            <h2>
+                <a href="{% url 'detail_game' game.id %}">{{ game.judul }}</a>
+            </h2>
+
+            <p><strong>Developer:</strong> {{ game.developer }}</p>
+            <p>{{ game.deskripsi|truncatewords:20 }}</p>
+
+            <ul class="category-list">
+                 {% for kategori in game.kategori.all %}
+           <li>
+         {# ▼▼▼ UBAH BARIS INI ▼▼▼ #}
+              <a href="{% url 'games_by_category' kategori.nama_kategori %}" class="category-badge">{{ kategori.nama_kategori }}</a>
+             </li>
+                 {% endfor %}
+            </ul>
+        </div>
+    {% empty %}
+        <p>Belum ada game di dalam katalog. Silakan tambahkan melalui halaman admin.</p>
+    {% endfor %}
+{% endblock %}
