@@ -1,25 +1,25 @@
-# 🕹️ Pustaka Game
+# 🕹️ Pustaka Game (BS2)
 
-**Pustaka Game** adalah aplikasi web berbasis Django yang memungkinkan pengguna untuk menjelajahi berbagai game, melihat detailnya, serta memiliki profil pribadi dengan gambar. Proyek ini dibuat untuk tujuan pembelajaran dan latihan penggunaan framework Django.
+**Pustaka Game** adalah aplikasi web berbasis Django yang dibuat sebagai tugas akhir mata kuliah Basis Data 2. Aplikasi ini memungkinkan pengguna menjelajahi koleksi game, mencari berdasarkan kategori, serta memiliki profil pribadi dengan gambar.
 
 ---
 
 ## 🚀 Fitur Utama
 
-- 🔐 Autentikasi: Registrasi, Login, Logout
-- 📂 Manajemen Game: Tampil, filter berdasarkan kategori, dan pencarian
-- 🖼️ Profil Pengguna: Upload gambar dan update profil
-- 🎨 Desain tema gelap "Dark Elegant" dengan CSS modern
-- 🧠 Implementasi Django Signals untuk auto-create profil
-- 🔎 Pencarian dinamis dengan Q objects
-- 📦 Siap dideploy ke layanan seperti Render atau Railway
+- 🔐 Registrasi, login, logout
+- 📂 Filter kategori dan pencarian dinamis
+- 🖼️ Upload & update gambar profil
+- 🎨 Desain "Dark Elegant" dengan CSS modern (Flexbox, Grid, CSS Variables)
+- 🧠 Signals untuk auto-create profil saat user dibuat
+- ⚡ Optimisasi query dengan ORM
+- 🌍 Siap untuk deployment (misalnya ke Render)
 
 ---
 
-## 🛠️ Instalasi dan Menjalankan Proyek
+## 🛠️ Instalasi & Menjalankan Proyek
 
-### 1. Clone repositori
+### 1. Clone repository ini
 
 ```bash
-git clone https://github.com/username/pustaka-game.git
-cd pustaka-game
+git clone https://github.com/Blazingctz10/pustaka-gameBS2.git
+cd pustaka-gameBS2
