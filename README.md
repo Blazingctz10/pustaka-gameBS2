@@ -1,10 +1,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-# Pustaka Game YAJIZ
+# Pustaka Game J
 
-Selamat datang di Pustaka Game YAJIZ, sebuah aplikasi web katalog game yang dibangun menggunakan Django. Proyek ini memungkinkan pengguna untuk menjelajahi, mencari, memfilter, dan berinteraksi dengan koleksi game melalui sistem komentar dan rating.
+Selamat datang di Pustaka Game J, sebuah aplikasi web katalog game yang dibangun menggunakan Django. Proyek ini memungkinkan pengguna untuk menjelajahi, mencari, memfilter, dan berinteraksi dengan koleksi game melalui sistem komentar dan rating.
 
-![Screenshot Halaman Utama](https://imgur.com/a/6phaKJP)
 
 
 ---
