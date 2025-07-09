@@ -4,7 +4,7 @@
 
 Selamat datang di Pustaka Game YAJIZ, sebuah aplikasi web katalog game yang dibangun menggunakan Django. Proyek ini memungkinkan pengguna untuk menjelajahi, mencari, memfilter, dan berinteraksi dengan koleksi game melalui sistem komentar dan rating.
 
-![Screenshot Halaman Utama]([https://i.imgur.com/your-screenshot-link.png](https://imgur.com/a/6phaKJP))
+![Screenshot Halaman Utama](https://imgur.com/a/6phaKJP)
 
 
 ---
