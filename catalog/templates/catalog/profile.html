@@ -3,44 +3,45 @@
 {% block title %}{{ judul_halaman }}{% endblock %}
 
 {% block content %}
-    {# ▼▼▼ Tombol Kembali ▼▼▼ #}
     <p><a href="{% url 'home' %}">&larr; Kembali ke Katalog</a></p>
     <hr>
-
-    <h1>{{ judul_halaman }}</h1>
     
     <div class="profile-layout">
-        <div class="profile-sidebar">
-            {# ▼▼▼ Tampilkan Gambar Profil ▼▼▼ #}
+        <aside class="profile-sidebar">
             <img class="profile-pic" src="{{ user.profile.gambar.url }}" alt="Foto Profil {{ user.username }}">
             
-            <h3>Update Gambar Profil</h3>
-            {# ▼▼▼ Form Upload dengan enctype ▼▼▼ #}
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ p_form }}
-                <button type="submit" class="btn-primary">Simpan Perubahan</button>
-            </form>
-        </div>
+            <h2 class="profile-username">{{ user.username }}</h2>
+            <span class="profile-usertype">{{ user.profile.tipe_user|capfirst }}</span>
+
+            <div class="profile-update-form">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ p_form.gambar.errors }}
+                    {{ p_form.gambar }} 
+                    <label for="{{ p_form.gambar.id_for_label }}" class="btn-primary" style="cursor: pointer;">
+                        Pilih Gambar
+                    </label>
+                    <button type="submit" class="btn-primary">Simpan</button>
+                </form>
+            </div>
+        </aside>
 
         <div class="profile-main">
             <div class="profile-details">
                 <h3>Detail Akun</h3>
-                <p><strong>Username:</strong> {{ user.username }}</p>
                 <p><strong>Email:</strong> {{ user.email }}</p>
                 <p><strong>Tanggal Bergabung:</strong> {{ user.date_joined|date:"d F Y" }}</p>
-                <p><strong>Tipe Keanggotaan:</strong> {{ user.profile.tipe_user|capfirst }}</p>
             </div>
 
             <div class="comments-section">
-                <h3>Komentar Terakhir Anda ({{ user_comments.count }})</h3>
+                <h3>Riwayat Komentar ({{ user_comments.count }})</h3>
                 {% for komentar in user_comments %}
                   <div class="comment">
                     <p>
-                      Komentar pada game <strong><a href="{% url 'detail_game' komentar.game.pk %}">{{ komentar.game.judul }}</a></strong>
-                      <small class="comment-date">pada {{ komentar.tanggal_dibuat|date:"d M Y, H:i" }}</small>
+                      Pada game <strong><a href="{% url 'detail_game' komentar.game.pk %}">{{ komentar.game.judul }}</a></strong>
+                      <small class="comment-date"> - {{ komentar.tanggal_dibuat|date:"d M Y, H:i" }}</small>
                     </p>
-                    <p class="comment-body"><em>"{{ komentar.isi_komentar|linebreaks }}"</em></p>
+                    <div class="comment-body">{{ komentar.isi_komentar|linebreaks }}</div>
                   </div>
                 {% empty %}
                   <p>Anda belum pernah berkomentar.</p>

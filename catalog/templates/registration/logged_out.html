@@ -3,10 +3,12 @@
 {% block title %}Anda Telah Logout{% endblock %}
 
 {% block content %}
-  <div class="form-container" style="text-align: center;">
-      <h2>Anda Telah Logout</h2>
-      <p>Terima kasih telah menggunakan Pustaka Game Batam. Sampai jumpa lagi!</p>
-      <hr>
-      <a href="{% url 'home' %}" class="btn-primary">Kembali ke Halaman Utama</a>
+  <div class="auth-page-wrapper">
+    <div class="form-container" style="text-align: center;">
+        <h2>Anda Telah Logout</h2>
+        <p>Terima kasih telah menggunakan Pustaka Game Yazid. Sampai jumpa lagi!</p>
+        <hr>
+        <a href="{% url 'home' %}" class="btn-primary">Kembali ke Halaman Utama</a>
+    </div>
   </div>
 {% endblock %}

@@ -32,11 +32,11 @@ class Game(models.Model):
 # Model untuk Screenshot (Satu game punya banyak screenshot)
 class Screenshot(models.Model):
     game = models.ForeignKey(Game, related_name='screenshots', on_delete=models.CASCADE)
-    url_gambar = models.URLField(max_length=500)
+    url_gambar = models.URLField(max_length=500) # <-- DIUBAH KEMBALI
     caption = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return f"Screenshot for {self.game.judul}"
+        return f"Screenshot untuk {self.game.judul}"
 
 
 # Model untuk Link Download (Satu game punya banyak link)
@@ -74,3 +74,15 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Profile'
+
+class Rating(models.Model):
+    game = models.ForeignKey(Game, related_name='ratings', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='ratings', on_delete=models.CASCADE)
+    skor = models.PositiveIntegerField(choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')])
+
+    class Meta:
+        # Memastikan satu user hanya bisa memberi satu rating per game
+        unique_together = ('game', 'user')
+
+    def __str__(self):
+        return f"{self.skor} bintang untuk {self.game.judul} oleh {self.user.username}"

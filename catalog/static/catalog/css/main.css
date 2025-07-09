@@ -133,18 +133,94 @@ h1, h2, h3 {
 }
 .category-badge:hover { background-color: var(--brand-primary); color: white; }
 
+.game-info .screenshots {
+    margin-top: 20px;
+}
 
-/* === DETAIL & PROFILE PAGE === */
-.profile-layout { display: flex; gap: 30px; }
-.profile-sidebar { flex: 0 0 250px; }
-.profile-main { flex: 1; }
+.game-info .screenshots h3 {
+    margin-bottom: 10px;
+}
+
+.game-info .screenshots a {
+    display: inline-block; /* Agar gambar bisa berada dalam satu baris */
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden; /* Untuk memotong gambar yang mungkin keluar batas */
+}
+
+.game-info .screenshots a:hover {
+    border-color: var(--brand-primary);
+}
+
+.game-info .screenshots img.screenshot-img {
+    display: block; /* Mencegah spasi kosong di bawah gambar */
+    max-width: 200px; /* Lebar maksimum gambar */
+    height: auto;    /* Tinggi menyesuaikan proporsi */
+    object-fit: cover; /* Memastikan gambar mengisi area tanpa distorsi */
+    transition: transform 0.3s ease-in-out;
+}
+
+.game-info .screenshots a:hover img.screenshot-img {
+    transform: scale(1.05); /* Efek zoom halus saat dihover */
+}
+
+/* === DETAIL & PROFILE PAGE (OVERHAULED) === */
+.profile-layout { 
+    display: flex; 
+    align-items: flex-start;
+    gap: 30px; 
+}
+
+.profile-sidebar { 
+    flex: 0 0 280px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.profile-main { 
+    flex: 1; 
+}
+
 .profile-pic {
-    width: 100%;
-    height: auto;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
     border-radius: 50%;
     border: 4px solid var(--border-color);
-    margin-bottom: 20px;
+    margin: 0 auto 15px auto;
+    display: block;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
+
+.profile-username {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.profile-usertype {
+    display: inline-block;
+    background-color: var(--brand-primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+}
+
+.profile-update-form {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
 .profile-details, .game-info, .add-comment-section, .comments-section {
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
@@ -152,6 +228,7 @@ h1, h2, h3 {
     border-radius: 8px;
     margin-bottom: 20px;
 }
+
 .comment {
     border-top: 1px solid var(--border-color); padding: 15px 0;
 }
@@ -161,15 +238,58 @@ h1, h2, h3 {
 textarea {
     width: 100%; background-color: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px; font-family: 'Inter', sans-serif;
 }
-form input[type="file"] { margin: 10px 0; }
 
+
+/* === PROFILE BUTTON (Cincin Berwarna)   */
+.profile-button-container {}
+.profile-link {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 3px;
+    background: conic-gradient(
+        from 180deg, 
+        var(--brand-secondary), 
+        var(--brand-primary), 
+        var(--brand-secondary)
+    );
+    transition: transform 0.2s ease-in-out;
+}
+.profile-link:hover {
+    transform: scale(1.1);
+}
+.profile-pic-nav {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--bg-secondary);
+}
+
+
+/* === AUTH PAGE WRAPPER (Untuk Centering) */
+.auth-page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 70vh;
+}
+
+
+/* === FORM STYLES (Login, Register) === */
 .form-container {
     background-color: var(--bg-secondary);
-    padding: 30px;
+    padding: 40px;
     border-radius: 8px;
     border: 1px solid var(--border-color);
-    max-width: 500px;
+    max-width: 450px;
     margin: 40px auto;
+}
+
+.form-container h2 {
+    margin-bottom: 5px;
 }
 
 .form-field {
@@ -201,7 +321,6 @@ form input[type="file"] { margin: 10px 0; }
     margin-top: 5px;
 }
 
-/* Ini bagian terpenting untuk menampilkan error */
 .error-message {
     color: var(--danger-color, #f44336);
     font-weight: bold;
@@ -209,4 +328,190 @@ form input[type="file"] { margin: 10px 0; }
     margin-top: 5px;
     list-style: none;
     padding: 0;
+}
+
+
+/* === CUSTOM FILE UPLOAD BUTTON === */
+.profile-update-form {
+    text-align: center;
+}
+.profile-update-form input[type="file"] {
+    display: none;
+}
+.profile-update-form .btn-primary {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+
+/* === PAGINATION STYLES === */
+.pagination {
+    margin-top: 40px;
+    text-align: center;
+}
+.pagination .step-links a {
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    padding: 8px 15px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    margin: 0 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+.pagination .step-links a:hover {
+    background-color: var(--brand-primary);
+    color: white;
+    text-decoration: none;
+}
+.pagination .current-page {
+    margin: 0 15px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+
+/* === PAGE TRANSITION STYLES (Swup.js) === */
+.transition-fade {
+    transition: opacity 0.4s, transform 0.4s;
+    opacity: 1;
+    transform: none;
+}
+
+html.is-leaving .transition-fade {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+
+/* === RESPONSIVE STYLES === */
+@media (max-width: 768px) {
+    .profile-layout {
+        flex-direction: column;
+    }
+
+    .profile-sidebar {
+        width: 100%;
+        flex: 0 0 auto;
+    }
+
+    .game-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-left {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}
+.messages-container {
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 15px 20px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Style untuk pesan sukses (berwarna hijau) */
+.alert-success {
+    color: #c3e6cb;
+    background-color: #2a3b2e;
+    border-color: #34A853;
+}
+
+/* Style untuk pesan info (berwarna biru) */
+.alert-info {
+    color: #bee5eb;
+    background-color: #2e3a4e;
+    border-color: var(--brand-primary);
+}
+.star-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stars-outer {
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+}
+
+.stars-outer::before {
+    content: "\f005 \f005 \f005 \f005 \f005"; /* 5 bintang kosong */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 400; /* Regular style */
+    color: #444;
+}
+
+.stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0%; /* Defaultnya 0% terisi */
+}
+
+.stars-inner::before {
+    content: "\f005 \f005 \f005 \f005 \f005"; /* 5 bintang penuh */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900; /* Solid style */
+    color: #f8ce0b; /* Warna kuning emas */
+}
+
+.rating-text {
+    color: var(--text-secondary);
+}
+.rating-form-container {
+    background-color: var(--bg-tertiary);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.rate {
+    display: flex;
+    flex-direction: row-reverse; /* Trik agar hover bekerja dari kanan ke kiri */
+    justify-content: center;
+    gap: 5px;
+}
+.rate > input {
+    display:none; /* Sembunyikan radio button asli */
+}
+.rate > label {
+    position: relative;
+    width: 1.1em;
+    font-size: 30px;
+    color: #444;
+    cursor: pointer;
+}
+.rate > label::before{ 
+    content: "\f005"; /* Ikon bintang dari Font Awesome */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 400; /* Regular style */
+}
+.rate > input:checked ~ label,
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #f8ce0b; /* Warna kuning emas saat hover atau dipilih */
+}
+.rate > input:checked + label:hover,
+.rate > input:checked ~ label:hover,
+.rate > label:hover ~ input:checked ~ label,
+.rate > input:checked ~ label:hover ~ label {
+    color: #ffc107; /* Warna kuning lebih terang saat hover di atas yang sudah dipilih */
 }

@@ -3,33 +3,33 @@
 {% block title %}Login ke Pustaka Game{% endblock %}
 
 {% block content %}
-  <div class="form-container"> 
-    <h2>Login</h2>
-    <p>Selamat datang kembali! Silakan masuk ke akun Anda.</p>
-    <hr>
+  <div class="auth-page-wrapper">
+    <div class="form-container"> 
+      <h2>Login</h2>
+      <p>Selamat datang kembali! Silakan masuk ke akun Anda.</p>
+      <hr>
 
-    <form method="post">
-      {% csrf_token %}
-      
-      {# Menampilkan error umum (seperti "username atau password salah") #}
-      {% for error in form.non_field_errors %}
-        <p class="error-message">{{ error }}</p>
-      {% endfor %}
+      <form method="post">
+        {% csrf_token %}
+        
+        {% for error in form.non_field_errors %}
+          <p class="error-message">{{ error }}</p>
+        {% endfor %}
 
-      {# Loop melalui setiap field (Username, Password) #}
-      {% for field in form %}
-        <div class="form-field">
-          {{ field.label_tag }}
-          {{ field }}
-          {% for error in field.errors %}
-            <p class="error-message">{{ error }}</p>
-          {% endfor %}
-        </div>
-      {% endfor %}
+        {% for field in form %}
+          <div class="form-field">
+            {{ field.label_tag }}
+            {{ field }}
+            {% for error in field.errors %}
+              <p class="error-message">{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endfor %}
 
-      <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Login</button>
-    </form>
+        <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Login</button>
+      </form>
 
-    <p style="margin-top: 20px; text-align: center;">Belum punya akun? <a href="{% url 'register' %}">Daftar di sini</a>.</p>
+      <p style="margin-top: 20px; text-align: center;">Belum punya akun? <a href="{% url 'register' %}">Daftar di sini</a>.</p>
+    </div>
   </div>
 {% endblock %}

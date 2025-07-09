@@ -3,40 +3,36 @@
 {% block title %}Buat Akun Baru{% endblock %}
 
 {% block content %}
-  <div class="form-container"> 
-    <h2>Buat Akun Baru</h2>
-    <p>Bergabunglah dengan komunitas untuk berkomentar dan berinteraksi.</p>
-    <hr>
-    
-    <form method="post">
-      {% csrf_token %}
+  <div class="auth-page-wrapper">
+    <div class="form-container"> 
+      <h2>Buat Akun Baru</h2>
+      <p>Bergabunglah dengan komunitas untuk berkomentar dan berinteraksi.</p>
+      <hr>
       
-      {# Loop melalui setiap field di dalam form untuk kontrol penuh #}
-      {% for field in form %}
-        <div class="form-field">
-          {{ field.label_tag }}  {# Menampilkan label seperti "Username" #}
-          {{ field }}            {# Menampilkan kotak inputnya #}
-          
-          {# Menampilkan help text jika ada (misal: "8 characters minimum") #}
-          {% if field.help_text %}
-            <small class="help-text">{{ field.help_text|safe }}</small>
-          {% endif %}
-          
-          {# Ini bagian krusial untuk menampilkan error per-field #}
-          {% for error in field.errors %}
-            <p class="error-message">{{ error }}</p>
-          {% endfor %}
-        </div>
-      {% endfor %}
-      
-      {# Menampilkan error umum (jika ada) #}
-      {% for error in form.non_field_errors %}
-        <p class="error-message">{{ error }}</p>
-      {% endfor %}
+      <form method="post">
+        {% csrf_token %}
+        
+        {% for field in form %}
+          <div class="form-field">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.help_text %}
+              <small class="help-text">{{ field.help_text|safe }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+              <p class="error-message">{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endfor %}
+        
+        {% for error in form.non_field_errors %}
+          <p class="error-message">{{ error }}</p>
+        {% endfor %}
 
-      <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Daftar Akun</button>
-    </form>
-    
-    <p style="margin-top: 20px; text-align: center;">Sudah punya akun? <a href="{% url 'login' %}">Login di sini</a>.</p>
+        <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Daftar Akun</button>
+      </form>
+      
+      <p style="margin-top: 20px; text-align: center;">Sudah punya akun? <a href="{% url 'login' %}">Login di sini</a>.</p>
+    </div>
   </div>
 {% endblock %}

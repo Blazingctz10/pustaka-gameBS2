@@ -5,7 +5,7 @@
 {% block content %}
     <p><a href="{% url 'home' %}">&larr; Kembali ke Katalog</a></p>
     <hr>
-
+    
     <div class="game-info">
         {% if game.gambar_utama_url %}
             <img src="{{ game.gambar_utama_url }}" alt="Cover untuk {{ game.judul }}" width="100%" style="border-radius: 8px; margin-bottom: 20px;">
@@ -13,6 +13,16 @@
 
         <h1>{{ game.judul }}</h1>
         <p><strong>Developer:</strong> {{ game.developer }} | <strong>Versi:</strong> {{ game.versi }}</p>
+
+        <div class="star-rating">
+            <div class="stars-outer">
+                <div class="stars-inner" style="width: {% widthratio average_rating 5 100 %}%"></div>
+            </div>
+            <span class="rating-text">
+                {{ average_rating|floatformat:1 }} dari 5 ({{ rating_count }} rating)
+            </span>
+        </div>
+        
         <hr>
         <h3>Deskripsi</h3>
         <p>{{ game.deskripsi|linebreaks }}</p>
@@ -20,7 +30,7 @@
         <div class="screenshots">
             <h3>Screenshot</h3>
             {% for ss in game.screenshots.all %}
-                <a href="{{ ss.url_gambar }}" target="_blank">
+                <a href="{{ ss.url_gambar }}" class="glightbox" data-gallery="gallery-{{ game.id }}">
                     <img class="screenshot-img" src="{{ ss.url_gambar }}" alt="{{ ss.caption|default:'Screenshot' }}">
                 </a>
             {% empty %}
@@ -39,18 +49,35 @@
             </ul>
         </div>
     </div>
-
+    
     <div class="add-comment-section">
+        {% if user.is_authenticated %}
+            <div class="rating-form-container">
+                <h4>Beri atau Perbarui Rating Anda</h4>
+                <form action="{% url 'add_rating' game.pk %}" method="POST">
+                    {% csrf_token %}
+                    <div class="rate">
+                        <input type="radio" id="star5" name="skor" value="5" /><label for="star5" title="5 bintang"></label>
+                        <input type="radio" id="star4" name="skor" value="4" /><label for="star4" title="4 bintang"></label>
+                        <input type="radio" id="star3" name="skor" value="3" /><label for="star3" title="3 bintang"></label>
+                        <input type="radio" id="star2" name="skor" value="2" /><label for="star2" title="2 bintang"></label>
+                        <input type="radio" id="star1" name="skor" value="1" /><label for="star1" title="1 bintang"></label>
+                    </div>
+                    <button type="submit" class="btn-primary" style="margin-top: 15px;">Kirim Rating</button>
+                </form>
+            </div>
+            {% endif %}
+
         <h3>Tinggalkan Komentar</h3>
         {% if user.is_authenticated %}
             <form action="{% url 'add_comment' game.pk %}" method="post">
                 {% csrf_token %}
-                <textarea name="isi_komentar" rows="4" placeholder="Tulis komentar Anda di sini..." style="width: 100%; background-color: #333; color: #ddd; border: 1px solid #555; border-radius: 4px; padding: 10px;" required></textarea>
+                <textarea name="isi_komentar" rows="4" placeholder="Tulis komentar Anda di sini..." required></textarea>
                 <br>
-                <button type="submit" style="margin-top: 10px; padding: 8px 15px; background-color: #569cd6; color: white; border: none; border-radius: 4px; cursor: pointer;">Kirim Komentar</button>
+                <button type="submit" class="btn-primary" style="margin-top: 10px;">Kirim Komentar</button>
             </form>
         {% else %}
-            <p>Anda harus <a href="{% url 'login' %}?next={{ request.path }}">login</a> untuk bisa berkomentar.</p>
+            <p>Anda harus <a href="{% url 'login' %}?next={{ request.path }}">login</a> untuk bisa memberi rating atau berkomentar.</p>
         {% endif %}
     </div>
 
@@ -60,9 +87,9 @@
           <div class="comment">
             <p>
               <strong>{{ komentar.pengguna.username }}</strong>
-              <small style="color: #888;">pada {{ komentar.tanggal_dibuat|date:"d M Y, H:i" }}</small>
+              <small class="comment-date">pada {{ komentar.tanggal_dibuat|date:"d M Y, H:i" }}</small>
             </p>
-            <p>{{ komentar.isi_komentar|linebreaks }}</p>
+            <div class="comment-body">{{ komentar.isi_komentar|linebreaks }}</div>
           </div>
         {% empty %}
           <p>Jadilah yang pertama berkomentar!</p>
