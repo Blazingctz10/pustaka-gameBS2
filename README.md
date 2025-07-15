@@ -61,7 +61,7 @@ Berikut adalah langkah-langkah untuk menjalankan proyek ini di komputer lokal.
 
 1.  **Clone Repository**
     ```bash
-    git clone [https://github.com/Blazingctz10/pustaka-gameBS2.git](https://github.com/Blazingctz10/pustaka-gameBS2.git)
+    git clone https://github.com/Blazingctz10/pustaka-gameBS2.git
     cd pustaka-gameBS2
     ```
 
