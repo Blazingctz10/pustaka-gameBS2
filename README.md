@@ -1,28 +1,42 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-# Pustaka Game J
+# Pustaka Game YAJIZ
 
-Selamat datang di Pustaka Game J, sebuah aplikasi web katalog game yang dibangun menggunakan Django. Proyek ini memungkinkan pengguna untuk menjelajahi, mencari, memfilter, dan berinteraksi dengan koleksi game melalui sistem komentar dan rating.
+Selamat datang di Pustaka Game YAJIZ, sebuah aplikasi web katalog game dinamis dan interaktif yang dibangun menggunakan framework Django. Proyek ini dirancang untuk menjadi platform komunitas di mana pengguna dapat menjelajahi, menilai, dan mendiskusikan berbagai macam game.
 
-
+![Screenshot Halaman Utama](https://i.imgur.com/your-screenshot-link.png)
+> **Catatan:** Ganti link di atas dengan link screenshot terbaru dari halaman utama website Anda.
 
 ---
 
 ## ✨ Fitur Utama
 
-Proyek ini dilengkapi dengan berbagai fitur modern untuk menciptakan pengalaman pengguna yang kaya dan interaktif:
+Proyek ini dilengkapi dengan berbagai fitur modern untuk menciptakan pengalaman pengguna yang kaya dan profesional:
 
-* **Autentikasi Pengguna:** Sistem lengkap untuk **Registrasi**, **Login**, dan **Logout**.
-* **Profil Pengguna:** Setiap pengguna memiliki halaman profil sendiri dengan **gambar profil yang bisa diunggah** dan riwayat komentar.
-* **Katalog Game:** Menampilkan daftar game dengan **Pagination** (penomoran halaman) agar tidak membebani halaman.
-* **Filter & Pencarian:** Pengguna dapat **memfilter** game berdasarkan kategori dan melakukan **pencarian** berdasarkan judul atau deskripsi.
-* **Sistem Interaksi:**
-    * **Komentar:** Pengguna yang sudah login dapat meninggalkan komentar di halaman detail game.
-    * **Rating Bintang:** Pengguna bisa memberikan rating 1-5 bintang untuk setiap game, dan rata-rata rating akan ditampilkan.
-* **Tampilan Modern & Elegan:**
-    * Tema **"Dark Elegant"** yang konsisten di seluruh website.
+* **Sistem Katalog Game:**
+    * Tampilan daftar game dalam format grid yang rapi.
+    * **Pencarian Lanjutan:** Pencarian berdasarkan judul/deskripsi, filter berdasarkan developer, dan opsi untuk mengurutkan (sortir) berdasarkan game terbaru, judul, atau rating tertinggi.
+    * **Pagination:** Halaman utama secara otomatis membagi daftar game menjadi beberapa halaman untuk performa yang cepat.
+    * **Filter per Kategori:** Menampilkan game hanya dari kategori yang dipilih.
+
+* **Sistem Pengguna & Profil:**
+    * **Autentikasi Lengkap:** Alur untuk **Registrasi**, **Login**, dan **Logout** pengguna.
+    * **Halaman Profil Personal:** Setiap pengguna memiliki halaman profil sendiri.
+    * **Kustomisasi Profil:** Pengguna dapat mengunggah **gambar profil** dan menulis **bio** singkat.
+    * **Statistik Pengguna:** Menampilkan jumlah total komentar dan rating yang telah diberikan.
+    * **Status Pengguna:** Lencana status (Member, VIP, Admin) dengan warna berbeda untuk identifikasi visual.
+
+* **Fitur Interaksi Sosial:**
+    * **Sistem Rating Bintang:** Pengguna yang login dapat memberikan rating 1-5 bintang pada game. Rata-rata rating akan ditampilkan secara visual.
+    * **Sistem Komentar:** Pengguna dapat meninggalkan komentar di setiap halaman detail game.
+    * **Game Favorit:** Pengguna dapat menandai game sebagai favorit dan melihat daftar koleksi mereka di halaman profil.
+
+* **Pengalaman Pengguna (UX) Modern:**
+    * **Mode Terang & Gelap:** Tombol toggle untuk mengubah tema website secara instan, dengan pilihan yang tersimpan di browser.
+    * **Logo Adaptif:** Logo website berubah secara otomatis mengikuti perubahan tema.
     * **Animasi Halus:** Efek animasi saat scroll (AOS), transisi antar halaman yang mulus (Swup), dan galeri gambar interaktif (GLightbox).
-    * **Desain Responsif:** Tampilan beradaptasi dengan baik di perangkat desktop maupun mobile.
+    * **Notifikasi "Flash":** Pesan konfirmasi yang informatif muncul setelah pengguna berhasil melakukan aksi (misalnya, setelah berkomentar atau registrasi).
+    * **Desain Responsif:** Tampilan website beradaptasi dengan baik untuk perangkat desktop maupun mobile.
 
 ---
 
@@ -35,7 +49,9 @@ Proyek ini dilengkapi dengan berbagai fitur modern untuk menciptakan pengalaman 
     * [AOS (Animate On Scroll)](https://michalsnik.github.io/aos/) - Untuk animasi saat scroll.
     * [Swup.js](https://swup.js.org/) - Untuk transisi halaman yang mulus.
     * [GLightbox](https://biati-digital.github.io/glightbox/) - Untuk galeri gambar interaktif.
-* **Deployment (Rencana):** Gunicorn, Render (PaaS)
+* **Deployment:**
+    * **Server Aplikasi:** Gunicorn
+    * **Hosting PaaS (Rekomendasi):** Render
 
 ---
 
@@ -50,13 +66,8 @@ Berikut adalah langkah-langkah untuk menjalankan proyek ini di komputer lokal.
     ```
 
 2.  **Setup Database PostgreSQL**
-    * Pastikan PostgreSQL sudah terinstall di sistem Anda.
-    * Buat database dan user baru. Contoh:
-        ```sql
-        CREATE DATABASE "SistemManajemenPerpusGame";
-        CREATE USER postgres WITH PASSWORD '12345';
-        GRANT ALL PRIVILEGES ON DATABASE "SistemManajemenPerpusGame" TO postgres;
-        ```
+    * Pastikan PostgreSQL sudah terinstall.
+    * Buat database baru (misalnya, `SistemManajemenPerpusGame`).
 
 3.  **Buat Virtual Environment & Install Dependencies**
     ```bash
@@ -71,41 +82,24 @@ Berikut adalah langkah-langkah untuk menjalankan proyek ini di komputer lokal.
     ```
 
 4.  **Konfigurasi Environment Variables**
-    * Salin atau buat ulang file `.env.example` menjadi `.env`.
-    * Isi file `.env` dengan kredensial Anda. File ini **tidak boleh** di-commit ke GitHub.
+    * Buat file `.env` di direktori utama proyek dan isi dengan kredensial Anda.
         ```
-        # Contoh isi file .env
-        SECRET_KEY='secret-key-anda-yang-sangat-rahasia'
+        SECRET_KEY='secret-key-anda'
         DEBUG=True
-        DATABASE_URL='postgres://postgres:12345@localhost:5432/SistemManajemenPerpusGame'
+        DATABASE_URL='postgres://USER:PASSWORD@HOST:PORT/NAMA_DATABASE'
         ```
-    * *Catatan: Anda mungkin perlu mengubah file `settings.py` untuk membaca variabel ini menggunakan library seperti `python-decouple`.*
 
-5.  **Jalankan Migrasi Database**
-    Perintah ini akan membuat semua tabel di database baru Anda.
+5.  **Jalankan Migrasi & Buat Superuser**
     ```bash
     python manage.py migrate
-    ```
-
-6.  **Buat Akun Superuser**
-    Akun ini digunakan untuk mengakses halaman admin Django.
-    ```bash
     python manage.py createsuperuser
     ```
 
-7.  **Jalankan Server**
+6.  **Jalankan Server**
     ```bash
     python manage.py runserver
     ```
-    Sekarang proyek sudah berjalan di `http://127.0.0.1:8000/`.
-
----
-
-## ☁️ Catatan Deployment
-
-Proyek ini sudah dikonfigurasi untuk bisa di-deploy dengan mudah ke layanan PaaS seperti **Render**.
-* **Build Command:** `pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate`
-* **Start Command:** `gunicorn game_project.wsgi`
+    Proyek sekarang berjalan di `http://127.0.0.1:8000/`.
 
 ---
 ## 📄 Lisensi
