@@ -72,7 +72,7 @@ Berikut adalah langkah-langkah untuk menjalankan proyek ini di komputer lokal.
     python -m venv .venv
 
     # Aktifkan venv (Windows)
-    .venv\Scripts\activate
+    .venv\Scripts\activate.bat
 
     # Install semua library yang dibutuhkan
     pip install -r requirements.txt
