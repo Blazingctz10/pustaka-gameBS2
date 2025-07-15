@@ -1,18 +1,22 @@
 # Python
-*.pyc
 __pycache__/
+*.pyc
 
-# Virtual environment
+# Virtual Environment
 .venv/
+venv/
+env/
 
-# Database lokal
+# Django
+*.log
 db.sqlite3
-
-# File upload media
 /media/
+/media/default.jpg
 
-# Staticfiles hasil collectstatic (jangan upload, bisa dibuat ulang)
-staticfiles/
-
-# File konfigurasi rahasia
+# File Environment
 .env
+.env.*
+
+# File Editor/OS
+.vscode/
+.DS_Store

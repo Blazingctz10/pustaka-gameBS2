@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %} {# <-- Jangan lupa load static di atas #}
 
 {% block title %}Anda Telah Logout{% endblock %}
 
@@ -6,7 +7,10 @@
   <div class="auth-page-wrapper">
     <div class="form-container" style="text-align: center;">
         <h2>Anda Telah Logout</h2>
-        <p>Terima kasih telah menggunakan Pustaka Game Yazid. Sampai jumpa lagi!</p>
+        <p>Terima kasih telah menggunakan Pustaka Game YAJIZ. Sampai jumpa lagi!</p>
+        
+        <img src="{% static 'catalog/img/logo2.png' %}" alt="Logout" style="max-width: 250px; margin: 20px auto;">
+        
         <hr>
         <a href="{% url 'home' %}" class="btn-primary">Kembali ke Halaman Utama</a>
     </div>

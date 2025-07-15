@@ -8,33 +8,73 @@
     
     <div class="profile-layout">
         <aside class="profile-sidebar">
-            <img class="profile-pic" src="{{ user.profile.gambar.url }}" alt="Foto Profil {{ user.username }}">
+            <img class="profile-pic" src="{{ user.profile.gambar_url }}" alt="Foto Profil {{ user.username }}">
             
             <h2 class="profile-username">{{ user.username }}</h2>
-            <span class="profile-usertype">{{ user.profile.tipe_user|capfirst }}</span>
+            <span class="profile-usertype usertype-{{ user.profile.tipe_user }}">{{ user.profile.tipe_user|capfirst }}</span>
+            
+            {% if user.profile.bio %}
+                <p style="color: var(--text-secondary); font-style: italic; margin-bottom: 25px;">"{{ user.profile.bio }}"</p>
+            {% else %}
+                 <p style="color: var(--text-secondary); font-style: italic; margin-bottom: 25px;">(Pengguna belum menambahkan bio)</p>
+            {% endif %}
 
-            <div class="profile-update-form">
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ p_form.gambar.errors }}
-                    {{ p_form.gambar }} 
-                    <label for="{{ p_form.gambar.id_for_label }}" class="btn-primary" style="cursor: pointer;">
-                        Pilih Gambar
-                    </label>
-                    <button type="submit" class="btn-primary">Simpan</button>
-                </form>
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <span class="stat-number">{{ user_comments.count }}</span>
+                    <span class="stat-label">Komentar</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">{{ total_ratings_given }}</span>
+                    <span class="stat-label">Rating Diberikan</span>
+                </div>
             </div>
         </aside>
 
         <div class="profile-main">
             <div class="profile-details">
-                <h3>Detail Akun</h3>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Tanggal Bergabung:</strong> {{ user.date_joined|date:"d F Y" }}</p>
+                <h3>Edit Profile</h3>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-field">
+                        <label for="{{ u_form.email.id_for_label }}">Email</label>
+                        {{ u_form.email }}
+                        {% for error in u_form.email.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
+                    </div>
+                    <div class="form-field">
+                        <label for="{{ p_form.bio.id_for_label }}">Bio</label>
+                        {{ p_form.bio }}
+                        {% for error in p_form.bio.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
+                    </div>
+                    <div class="form-field file-upload-wrapper">
+                        <label>Gambar Profil</label>
+                        {{ p_form.gambar }}
+                        <label for="{{ p_form.gambar.id_for_label }}" class="btn-primary">Ganti Gambar</label>
+                         {% for error in p_form.gambar.errors %}<p class="error-message">{{ error }}</p>{% endfor %}
+                    </div>
+                    <div style="margin-top: 30px;">
+                        <button class="btn-primary" type="submit">Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="profile-details">
+                <h3><i class="fas fa-heart"></i> Game Favorit Anda ({{ user.profile.favorit.all.count }})</h3>
+                <hr>
+                {% for game in user.profile.favorit.all %}
+                    <div class="favorite-game-item">
+                        <p>
+                            <a href="{% url 'detail_game' game.pk %}">{{ game.judul }}</a>
+                        </p>
+                        <small>- oleh {{ game.developer }}</small>
+                    </div>
+                {% empty %}
+                    <p>Anda belum memiliki game favorit.</p>
+                {% endfor %}
             </div>
 
             <div class="comments-section">
-                <h3>Riwayat Komentar ({{ user_comments.count }})</h3>
+                <h3>Riwayat Komentar</h3>
                 {% for komentar in user_comments %}
                   <div class="comment">
                     <p>

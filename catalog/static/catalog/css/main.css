@@ -1,16 +1,30 @@
-/* === FONT & ROOT VARIABLES === */
+/* === FONT & ROOT VARIABLES (TEMA TERANG & GELAP) === */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
+/* Palet Warna Default (Mode Terang) */
 :root {
-    --bg-primary: #121212;
-    --bg-secondary: #1e1e1e;
-    --bg-tertiary: #2a2a2a;
-    --border-color: #444;
-    --text-primary: #e0e0e0;
-    --text-secondary: #a0a0a0;
-    --brand-primary: #569cd6;
-    --brand-secondary: #9cdcfe;
-    --danger-color: #f44336;
+    --bg-primary: #f4f7f6;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #e9ecef;
+    --border-color: #dee2e6;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --brand-primary: #007bff;
+    --brand-secondary: #0056b3;
+    --danger-color: #dc3545;
+}
+
+/* Palet Warna Mode Gelap (Nuansa Biru Gelap) */
+html.dark-mode {
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --bg-tertiary: #21262d;
+    --border-color: #30363d;
+    --text-primary: #c9d1d9;
+    --text-secondary: #8b949e;
+    --brand-primary: #58a6ff;
+    --brand-secondary: #1f6feb;
+    --danger-color: #f85149;
 }
 
 /* === GENERAL RESET & STYLES === */
@@ -19,34 +33,30 @@
     margin: 0;
     padding: 0;
 }
-
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-primary);
     color: var(--text-primary);
+    transition: background-color 0.3s, color 0.3s;
 }
-
 .container {
     max-width: 1200px;
     margin: 30px auto;
     padding: 0 20px;
 }
-
 a {
-    color: var(--brand-secondary);
+    color: var(--brand-primary);
     text-decoration: none;
     transition: color 0.2s ease-in-out;
 }
 a:hover {
-    color: var(--brand-primary);
+    color: var(--brand-secondary);
 }
-
 hr {
     border: none;
     border-top: 1px solid var(--border-color);
     margin: 20px 0;
 }
-
 h1, h2, h3 {
     color: var(--text-primary);
     margin-bottom: 15px;
@@ -60,6 +70,8 @@ h1, h2, h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: background-color 0.3s, border-color 0.3s;
 }
 .nav-left, .nav-right {
     display: flex;
@@ -67,20 +79,42 @@ h1, h2, h3 {
     gap: 20px;
 }
 .navbar a.site-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     font-size: 1.5em;
     font-weight: 700;
     color: var(--text-primary);
 }
-.navbar a.site-title:hover {
-    color: var(--brand-primary);
+.site-logo {
+    height: 110px;
+    width: 110px; /* Diberi lebar yang pasti agar tidak gepeng */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* Logo default untuk mode terang */
+    background-image: url('../img/logoterang.png');
 }
-.search-form input {
+html.dark-mode .site-logo {
+    /* Logo untuk mode gelap */
+    background-image: url('../img/logogelap.png');
+}
+.search-form {
+    display: flex;
+    gap: 10px;
+}
+.search-form input,
+.search-form select {
     padding: 8px 12px;
     border-radius: 6px;
     border: 1px solid var(--border-color);
     background-color: var(--bg-tertiary);
     color: var(--text-primary);
-    min-width: 300px;
+    font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+.search-form input {
+    min-width: 250px;
 }
 .search-form button, .btn-primary {
     padding: 8px 15px;
@@ -93,7 +127,7 @@ h1, h2, h3 {
     transition: background-color 0.2s;
 }
 .search-form button:hover, .btn-primary:hover {
-    background-color: #4a8ac9;
+    background-color: var(--brand-secondary);
 }
 .nav-right span { color: var(--text-secondary); }
 .logout-button {
@@ -113,10 +147,13 @@ h1, h2, h3 {
     border: 1px solid var(--border-color);
     border-radius: 8px;
     overflow: hidden;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s, border-color 0.3s;
 }
 .game-card:hover {
-    transform: scale(1.03);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+html.dark-mode .game-card:hover {
     box-shadow: 0 8px 25px rgba(0,0,0,0.4);
 }
 .game-card-image {
@@ -130,388 +167,209 @@ h1, h2, h3 {
 .category-list { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .category-badge {
     background-color: var(--bg-tertiary); color: var(--text-secondary); padding: 4px 10px; border-radius: 12px; font-size: 0.8em;
+    transition: background-color 0.3s, color 0.3s;
 }
 .category-badge:hover { background-color: var(--brand-primary); color: white; }
 
-.game-info .screenshots {
-    margin-top: 20px;
-}
 
-.game-info .screenshots h3 {
-    margin-bottom: 10px;
-}
-
-.game-info .screenshots a {
-    display: inline-block; /* Agar gambar bisa berada dalam satu baris */
-    margin-right: 10px;
-    margin-bottom: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    overflow: hidden; /* Untuk memotong gambar yang mungkin keluar batas */
-}
-
-.game-info .screenshots a:hover {
-    border-color: var(--brand-primary);
-}
-
-.game-info .screenshots img.screenshot-img {
-    display: block; /* Mencegah spasi kosong di bawah gambar */
-    max-width: 200px; /* Lebar maksimum gambar */
-    height: auto;    /* Tinggi menyesuaikan proporsi */
-    object-fit: cover; /* Memastikan gambar mengisi area tanpa distorsi */
-    transition: transform 0.3s ease-in-out;
-}
-
-.game-info .screenshots a:hover img.screenshot-img {
-    transform: scale(1.05); /* Efek zoom halus saat dihover */
-}
-
-/* === DETAIL & PROFILE PAGE (OVERHAULED) === */
-.profile-layout { 
-    display: flex; 
-    align-items: flex-start;
-    gap: 30px; 
-}
-
-.profile-sidebar { 
-    flex: 0 0 280px;
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    padding: 30px;
-    border-radius: 8px;
-    text-align: center;
-}
-
-.profile-main { 
-    flex: 1; 
-}
-
+/* === DETAIL & PROFILE PAGE === */
+.profile-layout { display: flex; align-items: flex-start; gap: 30px; }
+.profile-sidebar { flex: 0 0 280px; background-color: var(--bg-secondary); border: 1px solid var(--border-color); padding: 30px; border-radius: 8px; text-align: center; transition: background-color 0.3s, border-color 0.3s; }
+.profile-main { flex: 1; }
 .profile-pic {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid var(--border-color);
-    margin: 0 auto 15px auto;
-    display: block;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 4px solid var(--border-color); margin: 0 auto 15px auto; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: border-color 0.3s;
 }
-
-.profile-username {
-    font-size: 1.5em;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
+.profile-username { font-size: 1.5em; font-weight: 700; margin-bottom: 5px; }
 .profile-usertype {
-    display: inline-block;
-    background-color: var(--brand-primary);
-    color: white;
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 0.8em;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 25px;
+    display: inline-block; background-color: var(--brand-primary); color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.8em; font-weight: bold; text-transform: uppercase; margin-bottom: 25px;
+    transition: background-color 0.3s;
 }
-
-.profile-update-form {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border-color);
-}
-
+.usertype-vip { background-color: #8E44AD; }
+.usertype-admin { background-color: #e74c3c; }
 .profile-details, .game-info, .add-comment-section, .comments-section {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    padding: 25px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    background-color: var(--bg-secondary); border: 1px solid var(--border-color); padding: 25px; border-radius: 8px; margin-bottom: 20px;
+    transition: background-color 0.3s, border-color 0.3s;
 }
-
-.comment {
-    border-top: 1px solid var(--border-color); padding: 15px 0;
-}
+.comment { border-top: 1px solid var(--border-color); padding: 15px 0; transition: border-color 0.3s; }
 .comment:first-child { border-top: none; }
 .comment-date { color: var(--text-secondary); font-size: 0.9em; }
-.comment-body { background-color: var(--bg-tertiary); padding: 15px; border-radius: 6px; margin-top: 10px; }
+.comment-body { background-color: var(--bg-tertiary); padding: 15px; border-radius: 6px; margin-top: 10px; transition: background-color 0.3s; }
 textarea {
-    width: 100%; background-color: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px; font-family: 'Inter', sans-serif;
+    width: 100%; background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 10px; font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
 }
 
 
-/* === PROFILE BUTTON (Cincin Berwarna)   */
-.profile-button-container {}
+/* === PROFILE STATS === */
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding-top: 15px;
+    margin-top: 15px;
+    border-top: 1px solid var(--border-color);
+    transition: border-color 0.3s;
+}
+.stat-item { text-align: center; }
+.stat-number { display: block; font-size: 1.8em; font-weight: 700; color: var(--text-primary); }
+.stat-label { font-size: 0.9em; color: var(--text-secondary); }
+
+
+/* === PROFILE BUTTON (Navbar) === */
 .profile-link {
-    display: block;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    padding: 3px;
-    background: conic-gradient(
-        from 180deg, 
-        var(--brand-secondary), 
-        var(--brand-primary), 
-        var(--brand-secondary)
-    );
+    display: block; width: 40px; height: 40px; border-radius: 50%; padding: 3px;
+    background: conic-gradient( from 180deg, var(--brand-secondary), var(--brand-primary), var(--brand-secondary) );
     transition: transform 0.2s ease-in-out;
 }
-.profile-link:hover {
-    transform: scale(1.1);
-}
+.profile-link:hover { transform: scale(1.1); }
 .profile-pic-nav {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid var(--bg-secondary);
+    width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid var(--bg-secondary);
 }
 
 
-/* === AUTH PAGE WRAPPER (Untuk Centering) */
-.auth-page-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 70vh;
-}
-
-
-/* === FORM STYLES (Login, Register) === */
+/* === AUTH PAGE & FORMS === */
+.auth-page-wrapper { display: flex; justify-content: center; align-items: center; width: 100%; min-height: 70vh; }
 .form-container {
-    background-color: var(--bg-secondary);
-    padding: 40px;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    max-width: 450px;
-    margin: 40px auto;
+    background-color: var(--bg-secondary); padding: 40px; border-radius: 8px; border: 1px solid var(--border-color); max-width: 450px; margin: 40px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: background-color 0.3s, border-color 0.3s;
 }
-
-.form-container h2 {
-    margin-bottom: 5px;
+.form-container h2 { margin-bottom: 5px; }
+.form-field { margin-bottom: 20px; }
+.form-field label { display: block; margin-bottom: 5px; color: var(--text-secondary); font-weight: bold; }
+.form-field input, .form-field textarea {
+    width: 100%; padding: 10px; background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 1rem; font-family: 'Inter', sans-serif; 
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.3s, color 0.3s;
 }
-
-.form-field {
-    margin-bottom: 20px;
+.form-field input:focus, .form-field textarea:focus {
+    outline: none; border-color: var(--brand-primary); box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
-
-.form-field label {
-    display: block;
-    margin-bottom: 5px;
-    color: var(--text-secondary);
-    font-weight: bold;
+html.dark-mode .form-field input:focus, 
+html.dark-mode .form-field textarea:focus {
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.25);
 }
-
-.form-field input, 
-.form-field textarea {
-    width: 100%;
-    padding: 10px;
-    background-color: var(--bg-tertiary);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    color: var(--text-primary);
-    font-family: 'Inter', sans-serif;
-}
-
-.help-text {
-    font-size: 0.8em;
-    color: var(--text-secondary);
-    display: block;
-    margin-top: 5px;
-}
-
+.form-field textarea { min-height: 120px; resize: vertical; }
+.help-text { font-size: 0.8em; color: var(--text-secondary); display: block; margin-top: 5px; }
 .error-message {
-    color: var(--danger-color, #f44336);
-    font-weight: bold;
-    font-size: 0.9em;
-    margin-top: 5px;
-    list-style: none;
-    padding: 0;
+    color: var(--danger-color); font-weight: bold; font-size: 0.9em; margin-top: 5px; list-style: none; padding: 0;
 }
+.file-upload-wrapper input[type="file"] { display: none; }
+.file-upload-wrapper .btn-primary { display: inline-block; width: auto; cursor: pointer; margin-top: 5px; }
 
 
-/* === CUSTOM FILE UPLOAD BUTTON === */
-.profile-update-form {
-    text-align: center;
-}
-.profile-update-form input[type="file"] {
-    display: none;
-}
-.profile-update-form .btn-primary {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-
-/* === PAGINATION STYLES === */
-.pagination {
-    margin-top: 40px;
-    text-align: center;
-}
+/* === PAGINATION & OTHER COMPONENTS === */
+.pagination { margin-top: 40px; text-align: center; }
 .pagination .step-links a {
-    background-color: var(--bg-secondary);
-    color: var(--text-secondary);
-    padding: 8px 15px;
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
-    margin: 0 4px;
-    transition: background-color 0.2s, color 0.2s;
+    background-color: var(--bg-secondary); color: var(--text-primary); padding: 8px 15px; border-radius: 6px; border: 1px solid var(--border-color); margin: 0 4px; 
+    transition: background-color 0.2s, color 0.2s, border-color 0.3s;
 }
-.pagination .step-links a:hover {
-    background-color: var(--brand-primary);
-    color: white;
-    text-decoration: none;
-}
-.pagination .current-page {
-    margin: 0 15px;
-    font-weight: bold;
-    color: var(--text-primary);
-}
+.pagination .step-links a:hover { background-color: var(--brand-primary); color: white; text-decoration: none; border-color: var(--brand-primary); }
+.pagination .current-page { margin: 0 15px; font-weight: bold; color: var(--text-primary); }
+.alert { padding: 15px 20px; border-radius: 6px; border: 1px solid transparent; margin-bottom: 10px; font-weight: bold; transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
+.alert-success { color: #0f5132; background-color: #d1e7dd; border-color: #badbcc; }
+.alert-info { color: #055160; background-color: #cff4fc; border-color: #b6effb; }
+html.dark-mode .alert-success { color: #75b798; background-color: #1c3329; border-color: #2a4b3e; }
+html.dark-mode .alert-info { color: #6edff6; background-color: #203c45; border-color: #305a69; }
 
 
-/* === PAGE TRANSITION STYLES (Swup.js) === */
-.transition-fade {
-    transition: opacity 0.4s, transform 0.4s;
-    opacity: 1;
-    transform: none;
-}
-
-html.is-leaving .transition-fade {
-    opacity: 0;
-    transform: translateY(20px);
-}
+/* === PAGE TRANSITIONS & ANIMATIONS === */
+.transition-fade { transition: opacity 0.4s, transform 0.4s; opacity: 1; transform: none; }
+html.is-leaving .transition-fade { opacity: 0; transform: translateY(20px); }
 
 
-/* === RESPONSIVE STYLES === */
-@media (max-width: 768px) {
-    .profile-layout {
-        flex-direction: column;
-    }
-
-    .profile-sidebar {
-        width: 100%;
-        flex: 0 0 auto;
-    }
-
-    .game-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .nav-left {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-}
-.messages-container {
-    margin-bottom: 20px;
-}
-
-.alert {
-    padding: 15px 20px;
-    border-radius: 6px;
-    border: 1px solid transparent;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-/* Style untuk pesan sukses (berwarna hijau) */
-.alert-success {
-    color: #c3e6cb;
-    background-color: #2a3b2e;
-    border-color: #34A853;
-}
-
-/* Style untuk pesan info (berwarna biru) */
-.alert-info {
-    color: #bee5eb;
-    background-color: #2e3a4e;
-    border-color: var(--brand-primary);
-}
-.star-rating {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.stars-outer {
-    position: relative;
-    display: inline-block;
-    font-size: 20px;
-}
-
+/* === STAR RATING DISPLAY & FORM === */
+.star-rating { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.stars-outer { position: relative; display: inline-block; font-size: 20px; }
 .stars-outer::before {
-    content: "\f005 \f005 \f005 \f005 \f005"; /* 5 bintang kosong */
+    content: "\f005 \f005 \f005 \f005 \f005";
     font-family: "Font Awesome 6 Free";
-    font-weight: 400; /* Regular style */
-    color: #444;
+    font-weight: 400;
+    color: #ced4da;
 }
-
+html.dark-mode .stars-outer::before {
+    color: var(--border-color);
+}
 .stars-inner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 0%; /* Defaultnya 0% terisi */
+    position: absolute; top: 0; left: 0; white-space: nowrap; overflow: hidden;
+    width: var(--rating-width, 0%);
 }
-
 .stars-inner::before {
-    content: "\f005 \f005 \f005 \f005 \f005"; /* 5 bintang penuh */
+    content: "\f005 \f005 \f005 \f005 \f005";
     font-family: "Font Awesome 6 Free";
-    font-weight: 900; /* Solid style */
-    color: #f8ce0b; /* Warna kuning emas */
+    font-weight: 900;
+    color: #ffc107;
 }
-
-.rating-text {
-    color: var(--text-secondary);
-}
-.rating-form-container {
-    background-color: var(--bg-tertiary);
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 20px;
-}
-
-.rate {
-    display: flex;
-    flex-direction: row-reverse; /* Trik agar hover bekerja dari kanan ke kiri */
-    justify-content: center;
-    gap: 5px;
-}
-.rate > input {
-    display:none; /* Sembunyikan radio button asli */
-}
+.rating-text { color: var(--text-secondary); }
+.rating-form-container { background-color: var(--bg-tertiary); padding: 20px; border-radius: 8px; margin-top: 20px; transition: background-color 0.3s; }
+.rate { display: flex; flex-direction: row-reverse; justify-content: center; gap: 5px; }
+.rate > input { display:none; }
 .rate > label {
-    position: relative;
-    width: 1.1em;
-    font-size: 30px;
-    color: #444;
-    cursor: pointer;
-}
-.rate > label::before{ 
-    content: "\f005"; /* Ikon bintang dari Font Awesome */
+    position: relative; width: 1.1em; font-size: 30px; color: #ced4da; cursor: pointer;
     font-family: "Font Awesome 6 Free";
-    font-weight: 400; /* Regular style */
+    font-weight: 400;
 }
+html.dark-mode .rate > label {
+    color: var(--border-color);
+}
+.rate > label::before{ content: "\f005"; }
 .rate > input:checked ~ label,
 .rate:not(:checked) > label:hover,
 .rate:not(:checked) > label:hover ~ label {
-    color: #f8ce0b; /* Warna kuning emas saat hover atau dipilih */
+    color: #ffc107;
+    font-weight: 900;
 }
 .rate > input:checked + label:hover,
 .rate > input:checked ~ label:hover,
 .rate > label:hover ~ input:checked ~ label,
 .rate > input:checked ~ label:hover ~ label {
-    color: #ffc107; /* Warna kuning lebih terang saat hover di atas yang sudah dipilih */
+    color: #ffca2c;
+}
+
+
+/* === THEME TOGGLE SWITCH === */
+.theme-switch-wrapper { display: flex; align-items: center; }
+.theme-switch { display: inline-block; height: 24px; position: relative; width: 48px; }
+.theme-switch input { display:none; }
+.slider {
+    background-color: #ccc; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s;
+}
+.slider:before {
+    background-color: #fff; bottom: 3px; content: ""; height: 18px; left: 4px; position: absolute; transition: .4s; width: 18px;
+}
+input:checked + .slider {
+    background-color: var(--brand-primary);
+}
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+.slider.round { border-radius: 34px; }
+.slider.round:before { border-radius: 50%; }
+
+/* === PERBAIKAN UNTUK JAVASCRIPT LIBRARIES DI DARK MODE === */
+html.dark-mode .glightbox-container .gprev, 
+html.dark-mode .glightbox-container .gnext,
+html.dark-mode .glightbox-container .gclose {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+html.dark-mode .glightbox-container .gprev:hover, 
+html.dark-mode .glightbox-container .gnext:hover,
+html.dark-mode .glightbox-container .gclose:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+html.dark-mode .gslide-description {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%);
+}
+
+
+/* === RESPONSIVE STYLES === */
+@media (max-width: 992px) {
+    .search-form input {
+        min-width: 150px;
+    }
+}
+@media (max-width: 768px) {
+    .profile-layout, .navbar, .nav-left { flex-direction: column; align-items: stretch; gap: 15px; }
+    .profile-sidebar { width: 100%; flex: 0 0 auto; }
+    .game-grid { grid-template-columns: 1fr; }
+    .search-form { flex-direction: column; }
 }

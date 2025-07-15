@@ -14,9 +14,24 @@
         <h1>{{ game.judul }}</h1>
         <p><strong>Developer:</strong> {{ game.developer }} | <strong>Versi:</strong> {{ game.versi }}</p>
 
+        {% if user.is_authenticated %}
+            <form action="{% url 'toggle_favorite' game.pk %}" method="POST" style="display: inline-block; margin-bottom: 15px;">
+                {% csrf_token %}
+                {% if is_favorited %}
+                    <button type="submit" class="btn-primary" style="background-color: var(--danger-color);">
+                        <i class="fas fa-heart-crack"></i> Hapus dari Favorit
+                    </button>
+                {% else %}
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-heart"></i> Tambah ke Favorit
+                    </button>
+                {% endif %}
+            </form>
+        {% endif %}
+
         <div class="star-rating">
             <div class="stars-outer">
-                <div class="stars-inner" style="width: {% widthratio average_rating 5 100 %}%"></div>
+                <div class="stars-inner" style="--rating-width: {% widthratio average_rating 5 100 %}%"></div>
             </div>
             <span class="rating-text">
                 {{ average_rating|floatformat:1 }} dari 5 ({{ rating_count }} rating)
@@ -66,10 +81,8 @@
                     <button type="submit" class="btn-primary" style="margin-top: 15px;">Kirim Rating</button>
                 </form>
             </div>
-            {% endif %}
 
-        <h3>Tinggalkan Komentar</h3>
-        {% if user.is_authenticated %}
+            <h3 style="margin-top: 30px;">Tinggalkan Komentar</h3>
             <form action="{% url 'add_comment' game.pk %}" method="post">
                 {% csrf_token %}
                 <textarea name="isi_komentar" rows="4" placeholder="Tulis komentar Anda di sini..." required></textarea>

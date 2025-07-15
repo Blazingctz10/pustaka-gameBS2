@@ -3,26 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Pustaka Game Batam{% endblock %}</title>
+    <title>{% block title %}PGIR{% endblock %}</title>
     
     {% load static %}
     <link rel="stylesheet" href="{% static 'catalog/css/main.css' %}">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        (function() {
+            try {
+                var theme = localStorage.getItem('theme') || 'light';
+                if (theme === 'dark') {
+                    // Kita tambahkan class ke <html>, bukan <body>, agar lebih konsisten
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            } catch (e) {}
+        })();
+    </script>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-left">
-            <a href="{% url 'home' %}" class="site-title">PSJ</a>
+            <a href="{% url 'home' %}" class="site-title">
+                <div class="site-logo"></div> <span></span>
+            </a>
             <form method="GET" action="{% url 'home' %}" class="search-form">
                 <input type="text" name="q" placeholder="Cari game..." value="{{ request.GET.q }}">
+                <select name="developer">
+                    <option value="">Semua Developer</option>
+                    {% for dev in developers %}
+                        <option value="{{ dev }}" {% if dev == selected_developer %}selected{% endif %}>{{ dev }}</option>
+                    {% endfor %}
+                </select>
+                <select name="sort">
+                    <option value="terbaru" {% if not selected_sort or selected_sort == 'terbaru' %}selected{% endif %}>Urutkan: Terbaru</option>
+                    <option value="rating_desc" {% if selected_sort == 'rating_desc' %}selected{% endif %}>Urutkan: Rating Tertinggi</option>
+                    <option value="judul_asc" {% if selected_sort == 'judul_asc' %}selected{% endif %}>Urutkan: Judul (A-Z)</option>
+                    <option value="judul_desc" {% if selected_sort == 'judul_desc' %}selected{% endif %}>Urutkan: Judul (Z-A)</option>
+                </select>
                 <button type="submit" class="btn-primary">Cari</button>
             </form>
         </div>
@@ -31,7 +56,7 @@
                 <span>Halo, {{ user.username }}!</span>
                 <div class="profile-button-container">
                     <a href="{% url 'profile' %}" class="profile-link" title="Lihat Profil">
-                        <img class="profile-pic-nav" src="{{ user.profile.gambar.url }}" alt="Profile">
+                        <img class="profile-pic-nav" src="{{ user.profile.gambar_url }}" alt="Profile">
                     </a>
                 </div>
                 <form action="{% url 'account_logout' %}" method="post">
@@ -42,36 +67,72 @@
                 <a href="{% url 'login' %}">Login</a>
                 <a href="{% url 'register' %}">Register</a>
             {% endif %}
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="theme-checkbox">
+                    <input type="checkbox" id="theme-checkbox" />
+                    <div class="slider round"></div>
+                </label>
+            </div>
         </div>
     </nav> 
 
-    <main class="container">
-        
-        {% if messages %}
-            <div class="messages-container">
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-
-        {% block content %}
-        {% endblock %}
+    <main id="swup" class="transition-fade">
+        <div class="container">
+            {% if messages %}
+                <div class="messages-container">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% block content %}
+            {% endblock %}
+        </div>
     </main>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    
     <script type="module">
         import Swup from 'https://unpkg.com/swup@4?module';
         const swup = new Swup();
-        function initPageScripts() {
+
+        // Fungsi ini akan menginisialisasi semua script dan event listener kita
+        function initPage() {
+            // Inisialisasi AOS (Animasi Scroll)
             AOS.init({ duration: 800, once: true });
+            
+            // Inisialisasi GLightbox (Galeri Gambar)
             const lightbox = GLightbox({ touchNavigation: true, loop: true });
+            
+            // --- Logika untuk Tombol Toggle Tema ---
+            const themeToggle = document.querySelector('#theme-checkbox');
+            if (themeToggle) {
+                // Set posisi awal tombol sesuai tema yang tersimpan
+                themeToggle.checked = document.documentElement.classList.contains('dark-mode');
+            
+                // Hapus event listener lama agar tidak menumpuk
+                // Ini adalah trik penting untuk integrasi dengan Swup
+                themeToggle.replaceWith(themeToggle.cloneNode(true));
+                document.querySelector('#theme-checkbox').addEventListener('change', function() {
+                    if (this.checked) {
+                        localStorage.setItem('theme', 'dark');
+                        document.documentElement.classList.add('dark-mode');
+                    } else {
+                        localStorage.setItem('theme', 'light');
+                        document.documentElement.classList.remove('dark-mode');
+                    }
+                });
+            }
         }
-        document.addEventListener('DOMContentLoaded', initPageScripts);
-        swup.hooks.on('page:view', initPageScripts);
+
+        // Jalankan script saat halaman pertama kali dimuat
+        document.addEventListener('DOMContentLoaded', initPage);
+
+        // Jalankan script lagi setiap kali Swup selesai memuat halaman baru
+        swup.hooks.on('page:view', initPage);
     </script>
 </body>
 </html>
