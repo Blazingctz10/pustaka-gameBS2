@@ -1,8 +1,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-# Pustaka Game YAJIZ
+# Pustaka Game PGIR
 
-Selamat datang di Pustaka Game YAJIZ, sebuah aplikasi web katalog game dinamis dan interaktif yang dibangun menggunakan framework Django. Proyek ini dirancang untuk menjadi platform komunitas di mana pengguna dapat menjelajahi, menilai, dan mendiskusikan berbagai macam game.
+Selamat datang di Pustaka Game PGIR, sebuah aplikasi web katalog game dinamis dan interaktif yang dibangun menggunakan framework Django. Proyek ini dirancang untuk menjadi platform komunitas di mana pengguna dapat menjelajahi, menilai, dan mendiskusikan berbagai macam game.
 
 ![Screenshot Halaman Utama](https://i.imgur.com/your-screenshot-link.png)
 > **Catatan:** Ganti link di atas dengan link screenshot terbaru dari halaman utama website Anda.
